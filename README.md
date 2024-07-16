@@ -17,6 +17,6 @@
 
 ## Run the end to end tests
 
-- Make sure the development server is running (see [https://github.com/dyer-oliver21/star-wars-character-list?tab=readme-ov-file#launching-the-app]`launching the app` section above)
+- Make sure the development server is running (see [launching the app](#launching-the-app) section above)
 - Run `npm run cypress:open` to run the end to end tests with the cypress UI
 - Run `npm run cypress:run` to run the end to end tests headlessly
