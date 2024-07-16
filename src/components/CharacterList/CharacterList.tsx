@@ -11,7 +11,7 @@ const CharacterList: React.FC = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container">
+    <article className="container">
       <h1 className="text-center" data-test-id="character-list-main-heading">
         Character List
       </h1>
@@ -29,7 +29,7 @@ const CharacterList: React.FC = () => {
           })}
         </ul>
       </section>
-    </div>
+    </article>
   );
 };
 

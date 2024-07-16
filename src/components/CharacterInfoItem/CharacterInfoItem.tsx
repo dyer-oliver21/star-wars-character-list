@@ -10,14 +10,14 @@ const CharacterInfoItem: React.FC<CharacterInfoItemProps> = ({
   value,
 }) => {
   return (
-    <div className="list-item" data-test-id="character-info-item">
+    <section className="list-item" data-test-id="character-info-item">
       <h5 className="heading__small" data-test-id="character-info-label">
         {label}
       </h5>
       <h3 className="heading__medium" data-test-id="character-info-value">
         {value}
       </h3>
-    </div>
+    </section>
   );
 };
 
