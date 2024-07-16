@@ -1,0 +1,18 @@
+.grid {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.two-col-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.one-col-grid {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (max-width: 545px) {
+  .one-col-grid--mobile {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

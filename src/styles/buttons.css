@@ -1,0 +1,13 @@
+.button {
+  border: none;
+  border-radius: 2px;
+  padding: 0.5rem 0.75rem;
+  max-width: 60px;
+  display: block;
+  text-align: center;
+}
+
+.button-secondary {
+  background: #000;
+  color: #fff;
+}

@@ -1,0 +1,22 @@
+.character-details__container {
+  margin-top: 1rem;
+}
+
+.character-details__name {
+  margin-bottom: 1rem;
+  align-content: center;
+}
+
+.character-details__films {
+  margin-top: 1.25rem;
+}
+
+.character-details__films h2 {
+  margin-bottom: 0.65rem;
+}
+
+@media (min-width: 545px) {
+  .two-col-grid:not(.character-details__list) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

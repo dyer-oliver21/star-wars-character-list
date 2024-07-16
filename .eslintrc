@@ -1,0 +1,29 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "cypress/globals": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:cypress/recommended",
+    "plugin:@typescript-eslint/recommended", // Add TypeScript recommended rules
+    "plugin:react/recommended" // Add React recommended rules if using React
+  ],
+  "parser": "@typescript-eslint/parser", // Specify TypeScript parser
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "cypress",
+    "@typescript-eslint" // Add TypeScript plugin
+  ],
+  "rules": {
+    // Customize ESLint rules as needed
+    "no-unused-vars": "off" // Disable no-unused-vars to prevent false positives with TypeScript
+  }
+}

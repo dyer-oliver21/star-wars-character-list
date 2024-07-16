@@ -1,0 +1,17 @@
+.films-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.films-list-item {
+  margin-bottom: 0.25rem;
+}
+
+.films-list-item:not(:last-child) {
+  margin-right: 0.25rem;
+}
+
+.films-list-item:not(:last-child)::after {
+  content: ", ";
+}

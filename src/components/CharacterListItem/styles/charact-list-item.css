@@ -1,0 +1,24 @@
+.character-list__item {
+  padding: 0;
+  box-shadow: 0;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.character-list__item:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.character-list-item__link {
+  padding: 1rem 0.75rem;
+  display: block;
+}
+
+.character-list__item-name {
+  margin-bottom: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .character-list__item:hover {
+    box-shadow: 0;
+  }
+}
