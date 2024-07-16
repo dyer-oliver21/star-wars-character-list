@@ -7,7 +7,7 @@ import { getIdFromUrl } from "../../utils/utils";
 const CharacterList: React.FC = () => {
   const { characters, loading, error } = useCharacterContext();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p data-test-id="character-list-loading">Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (

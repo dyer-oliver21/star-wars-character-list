@@ -79,11 +79,11 @@ describe("CharacterDetails", () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
-    expect(screen.getByText("blond")).toBeInTheDocument();
-    expect(screen.getByText("blue")).toBeInTheDocument();
-    expect(screen.getByText("male")).toBeInTheDocument();
     await waitFor(() => {
+      expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
+      expect(screen.getByText("blond")).toBeInTheDocument();
+      expect(screen.getByText("blue")).toBeInTheDocument();
+      expect(screen.getByText("male")).toBeInTheDocument();
       expect(screen.getByText("Tatooine")).toBeInTheDocument();
     });
   });

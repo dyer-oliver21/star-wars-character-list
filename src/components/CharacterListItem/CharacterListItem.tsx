@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import CharacterInfoItem from "../CharacterInfoItem/CharacterInfoItem";
 import { useCharacterContext } from "../../context/character-context";
 import { Character } from "../../types/types";
+import { getHomePlanetName } from "../../utils/planetUtils";
 import "./styles/charact-list-item.css";
 
 interface ICharacterListItemProps {
@@ -18,22 +19,16 @@ const CharacterListItem: React.FC<ICharacterListItemProps> = ({
   const [homeworld, setHomeWorld] = useState("Unknown");
 
   useEffect(() => {
-    const getHomePlanet = async (planetUrl: string) => {
-      try {
-        const response = await fetch(planetUrl);
-        const data = await response.json();
-        setHomeWorld(data.name);
-      } catch (error) {
-        console.error("Error fetching planet:", error);
-        setHomeWorld("Unknown");
+    const fetchHomePlanet = async () => {
+      if (planets && planets[character.homeworld]) {
+        setHomeWorld(planets[character.homeworld]?.name ?? "Unknown");
+      } else {
+        const planetName = await getHomePlanetName(character.homeworld);
+        setHomeWorld(planetName);
       }
     };
 
-    if (planets && planets[character.homeworld]) {
-      setHomeWorld(planets[character.homeworld]?.name ?? "Unknown");
-    } else {
-      getHomePlanet(character.homeworld);
-    }
+    fetchHomePlanet();
   }, [planets, character]);
 
   if (loading) return <p>Loading...</p>;

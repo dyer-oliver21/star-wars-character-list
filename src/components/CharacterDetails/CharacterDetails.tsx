@@ -4,6 +4,7 @@ import FilmList from "../FilmList/FilmList";
 import CharacterInfoItem from "../CharacterInfoItem/CharacterInfoItem";
 import { useCharacterContext } from "../../context/character-context";
 import { Character } from "../../types/types";
+import { getHomePlanetName } from "../../utils/planetUtils";
 import "./styles/character-details.css";
 
 const CharacterDetails: React.FC = () => {
@@ -17,25 +18,19 @@ const CharacterDetails: React.FC = () => {
   const [homeworld, setHomeWorld] = useState<string | null>(null);
 
   useEffect(() => {
-    const getHomePlanet = async (planetUrl: string) => {
-      try {
-        const response = await fetch(planetUrl);
-        const data = await response.json();
-        setHomeWorld(data.name);
-      } catch (error) {
-        console.error("Error fetching planet:", error);
-        setHomeWorld("Unknown");
+    const fetchHomePlanet = async () => {
+      if (character && character.homeworld) {
+        if (planets && planets[character.homeworld]) {
+          setHomeWorld(planets[character.homeworld]?.name);
+        } else {
+          const planetName = await getHomePlanetName(character.homeworld);
+          setHomeWorld(planetName);
+        }
       }
     };
 
-    if (character && !homeworld) {
-      if (planets && planets[character.homeworld]) {
-        setHomeWorld(planets[character.homeworld]?.name);
-      } else {
-        getHomePlanet(character.homeworld);
-      }
-    }
-  }, [planets, character, homeworld]);
+    fetchHomePlanet();
+  }, [planets, character]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;

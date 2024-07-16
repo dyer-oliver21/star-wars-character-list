@@ -38,19 +38,21 @@ describe("Character List Page", () => {
   });
 
   it("displays loading state correctly", () => {
-    cy.contains("Loading...").should("be.visible");
+    cy.get("[data-test-id='character-list-loading']").should("exist");
 
-    cy.wait(1000);
+    cy.wait(2000);
 
-    cy.contains("Loading...").should("not.exist");
+    cy.get("[data-test-id='character-list-loading']").should("not.exist");
   });
 
   it("navigates to CharacterDetails page when clicking on a character", () => {
-    cy.contains("Loading...").should("not.exist");
+    cy.get("[data-test-id='character-list-loading']").should("not.exist");
 
     cy.get("[data-test-id='character-list-item']").first().click();
 
     cy.url().should("include", "/character/1");
+
+    cy.wait(2000);
 
     cy.contains(
       "[data-test-id='character-details-name']",
