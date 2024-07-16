@@ -110,7 +110,9 @@ describe("CharacterListItem", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText("Unknown")).toBeInTheDocument();
+      expect(screen.queryByText("Loading...")).toBeNull();
     });
+
+    expect(screen.getByText("Unknown")).toBeInTheDocument();
   });
 });

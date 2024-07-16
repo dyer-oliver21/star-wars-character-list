@@ -17,5 +17,6 @@
 
 ## Run the end to end tests
 
+- Make sure the development server is running (see `launching the app` section above)
 - Run `npm run cypress:open` to run the end to end tests with the cypress UI
 - Run `npm run cypress:run` to run the end to end tests headlessly
