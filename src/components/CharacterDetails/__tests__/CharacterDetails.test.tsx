@@ -1,6 +1,10 @@
 import { useCharacterContext } from "../../../context/character-context";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
+import {
+  mockCharacterDetails,
+  mockPlanets,
+} from "../../../mocks/characterData";
 import CharacterDetails from "../CharacterDetails";
 
 jest.mock("../../../context/character-context", () => ({
@@ -53,21 +57,8 @@ describe("CharacterDetails", () => {
 
   it("displays character details", async () => {
     (useCharacterContext as jest.Mock).mockReturnValue({
-      characters: [
-        {
-          name: "Luke Skywalker",
-          gender: "male",
-          hair_color: "blond",
-          eye_color: "blue",
-          homeworld: "https://swapi.dev/api/planets/1/",
-          films: ["https://swapi.dev/api/films/1/"],
-        },
-      ],
-      planets: {
-        "https://swapi.dev/api/planets/1/": {
-          name: "Tatooine",
-        },
-      },
+      characters: mockCharacterDetails,
+      planets: mockPlanets,
       loading: false,
       error: null,
     });
@@ -79,12 +70,19 @@ describe("CharacterDetails", () => {
       </MemoryRouter>
     );
 
+    const character = mockCharacterDetails;
+    const homeworldURL = character[0].homeworld;
+    const homeworldName = mockPlanets[homeworldURL].name;
+
+    character.forEach(({ name, gender, hair_color, eye_color, homeworld }) => {
+      expect(screen.getByText(name)).toBeInTheDocument();
+      expect(screen.getByText(hair_color)).toBeInTheDocument();
+      expect(screen.getByText(eye_color)).toBeInTheDocument();
+      expect(screen.getByText(gender)).toBeInTheDocument();
+    });
+
     await waitFor(() => {
-      expect(screen.getByText("Luke Skywalker")).toBeInTheDocument();
-      expect(screen.getByText("blond")).toBeInTheDocument();
-      expect(screen.getByText("blue")).toBeInTheDocument();
-      expect(screen.getByText("male")).toBeInTheDocument();
-      expect(screen.getByText("Tatooine")).toBeInTheDocument();
+      expect(screen.getByText(homeworldName)).toBeInTheDocument();
     });
   });
 });

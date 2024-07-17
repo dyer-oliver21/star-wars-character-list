@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import FilmList from "../FilmList";
 import { useCharacterContext } from "../../../context/character-context";
+import { filmUrls, mockFilms } from "../../../mocks/characterData";
 
 jest.mock("../../../context/character-context", () => ({
   ...jest.requireActual("../../../context/character-context"),
@@ -8,11 +9,6 @@ jest.mock("../../../context/character-context", () => ({
 }));
 
 describe("FilmList", () => {
-  const mockFilms = {
-    "https://swapi.dev/api/films/1/": { title: "A New Hope" },
-    "https://swapi.dev/api/films/2/": { title: "The Empire Strikes Back" },
-  };
-
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -22,15 +18,11 @@ describe("FilmList", () => {
       films: mockFilms,
     });
 
-    const filmUrls = [
-      "https://swapi.dev/api/films/1/",
-      "https://swapi.dev/api/films/2/",
-    ];
-
     render(<FilmList filmUrls={filmUrls} />);
 
-    expect(screen.getByText("A New Hope")).toBeInTheDocument();
-    expect(screen.getByText("The Empire Strikes Back")).toBeInTheDocument();
+    filmUrls.forEach((url) => {
+      expect(screen.getByText(mockFilms[url].title)).toBeInTheDocument();
+    });
   });
 
   it("renders empty list when no films are found", () => {
@@ -38,17 +30,11 @@ describe("FilmList", () => {
       films: {},
     });
 
-    const filmUrls = [
-      "https://swapi.dev/api/films/1/",
-      "https://swapi.dev/api/films/2/",
-    ];
-
     render(<FilmList filmUrls={filmUrls} />);
 
-    expect(screen.queryByText("A New Hope")).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("The Empire Strikes Back")
-    ).not.toBeInTheDocument();
+    filmUrls.forEach((url) => {
+      expect(screen.queryByText(mockFilms[url].title)).not.toBeInTheDocument();
+    });
   });
 
   it("renders empty list when no filmUrls are provided", () => {
@@ -60,9 +46,8 @@ describe("FilmList", () => {
 
     render(<FilmList filmUrls={filmUrls} />);
 
-    expect(screen.queryByText("A New Hope")).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("The Empire Strikes Back")
-    ).not.toBeInTheDocument();
+    filmUrls.forEach((url) => {
+      expect(screen.queryByText(mockFilms[url].title)).not.toBeInTheDocument();
+    });
   });
 });
