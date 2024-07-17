@@ -1,0 +1,21 @@
+{
+  "characterDetails": {
+    "name": "Luke Skywalker",
+    "genderLabel": "Gender",
+    "genderValue": "male",
+    "homePlanetLabel": "Home Planet",
+    "homePlanetValue": "Tatooine"
+  },
+  "filmList": {
+    "filmCount": 4,
+    "filmTitles": ["A New Hope"]
+  },
+  "characterInfo": {
+    "infoLabel": "Hair Colour",
+    "infoValue": "blond"
+  },
+  "backButtonNavigation": {
+    "characterListUrl": "/",
+    "characterListHeading": "Character List"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "characterListHeading": "Character List",
+  "characters": ["Luke Skywalker", "Darth Vader"],
+  "characterInfo": {
+    "label": "Gender",
+    "value": "female"
+  },
+  "loadingTimeout": 2000,
+  "error": "Error"
+}

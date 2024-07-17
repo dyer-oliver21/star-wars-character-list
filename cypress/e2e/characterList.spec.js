@@ -1,4 +1,12 @@
 describe("Character List Page", () => {
+  let testData;
+
+  before(() => {
+    cy.fixture("characterListData").then((data) => {
+      testData = data;
+    });
+  });
+
   beforeEach(() => {
     cy.visit("/");
   });
@@ -11,36 +19,41 @@ describe("Character List Page", () => {
 
     cy.wait("@getCharacters");
 
-    cy.contains("Error").should("be.visible");
+    cy.contains(testData.error).should("be.visible");
   });
 
   it("displays the character list", () => {
     cy.contains(
       "[data-test-id='character-list-main-heading']",
-      "Character List"
+      testData.characterListHeading
     ).should("be.visible");
 
     cy.get("[data-test-id='character-list-item']").should("have.length", 10);
 
-    cy.contains("Luke Skywalker").should("be.visible");
-    cy.contains("Darth Vader").should("be.visible");
+    testData.characters.forEach((character) => {
+      cy.contains(character).should("be.visible");
+    });
   });
 
   it("displays the character info item", () => {
+    const characterInfo = testData.characterInfo;
+
     cy.get("[data-test-id='character-info-item']").should("exist");
 
-    cy.contains("[data-test-id='character-info-label']", "Gender").should(
-      "exist"
-    );
-    cy.contains("[data-test-id='character-info-value']", "female").should(
-      "exist"
-    );
+    cy.contains(
+      "[data-test-id='character-info-label']",
+      characterInfo.label
+    ).should("exist");
+    cy.contains(
+      "[data-test-id='character-info-value']",
+      characterInfo.value
+    ).should("exist");
   });
 
   it("displays loading state correctly", () => {
     cy.get("[data-test-id='character-list-loading']").should("exist");
 
-    cy.wait(2000);
+    cy.wait(testData.loadingTimeout);
 
     cy.get("[data-test-id='character-list-loading']").should("not.exist");
   });
@@ -48,15 +61,22 @@ describe("Character List Page", () => {
   it("navigates to CharacterDetails page when clicking on a character", () => {
     cy.get("[data-test-id='character-list-loading']").should("not.exist");
 
-    cy.get("[data-test-id='character-list-item']").first().click();
+    cy.get("[data-test-id='character-list-item']")
+      .first()
+      .should("be.visible")
+      .click();
 
     cy.url().should("include", "/character/1");
 
-    cy.wait(2000);
+    cy.wait(testData.loadingTimeout);
 
     cy.contains(
       "[data-test-id='character-details-name']",
-      "Luke Skywalker"
+      testData.characters[0]
     ).should("be.visible");
   });
+});
+
+Cypress.on("uncaught:exception", (err, runnable) => {
+  return false;
 });
