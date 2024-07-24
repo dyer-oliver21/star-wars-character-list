@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import CharacterList from "../CharacterList";
@@ -67,7 +68,8 @@ describe("CharacterList", () => {
       </MemoryRouter>
     );
 
-    mockCharacters.forEach((character) => {
+    mockCharacters.forEach(async (character) => {
+      await screen.findByText(character.name);
       expect(screen.getByText(character.name)).toBeInTheDocument();
     });
   });
