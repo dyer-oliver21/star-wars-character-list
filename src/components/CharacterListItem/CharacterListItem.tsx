@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import CharacterInfoItem from "../CharacterInfoItem/CharacterInfoItem";
 import { useCharacterContext } from "../../context/character-context";
 import { Character } from "../../types/types";
-import { getHomePlanetName } from "../../utils/planetUtils";
+import useHomeWorld from "../../hooks/useHomeworld";
 import "./styles/charact-list-item.css";
 
 interface ICharacterListItemProps {
@@ -16,22 +16,9 @@ const CharacterListItem: React.FC<ICharacterListItemProps> = ({
   characterId,
 }) => {
   const { planets, loading } = useCharacterContext();
-  const [homeworld, setHomeWorld] = useState("Unknown");
+  const homeworld = useHomeWorld(character, planets);
 
-  useEffect(() => {
-    const fetchHomePlanet = async () => {
-      if (planets && planets[character.homeworld]) {
-        setHomeWorld(planets[character.homeworld]?.name ?? "Unknown");
-      } else {
-        const planetName = await getHomePlanetName(character.homeworld);
-        setHomeWorld(planetName);
-      }
-    };
-
-    fetchHomePlanet();
-  }, [planets, character]);
-
-  if (loading) return <p>Loading...</p>;
+  if (loading || homeworld === null) return <p>Loading...</p>;
 
   const characterInfo = [
     { label: "Gender", value: character.gender },

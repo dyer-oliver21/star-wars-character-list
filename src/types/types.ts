@@ -29,3 +29,7 @@ export interface Film {
   title: string;
   url?: string;
 }
+
+export interface Planets {
+  [key: string]: { name: string };
+}

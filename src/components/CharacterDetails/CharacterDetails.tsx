@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
 import FilmList from "../FilmList/FilmList";
 import CharacterInfoItem from "../CharacterInfoItem/CharacterInfoItem";
 import { useCharacterContext } from "../../context/character-context";
 import { Character } from "../../types/types";
-import { getHomePlanetName } from "../../utils/planetUtils";
+import useHomeWorld from "../../hooks/useHomeworld";
 import "./styles/character-details.css";
 
 const CharacterDetails: React.FC = () => {
@@ -15,22 +15,7 @@ const CharacterDetails: React.FC = () => {
     (_, index) => index + 1 === Number(id)
   );
 
-  const [homeworld, setHomeWorld] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchHomePlanet = async () => {
-      if (character && character.homeworld) {
-        if (planets && planets[character.homeworld]) {
-          setHomeWorld(planets[character.homeworld]?.name);
-        } else {
-          const planetName = await getHomePlanetName(character.homeworld);
-          setHomeWorld(planetName);
-        }
-      }
-    };
-
-    fetchHomePlanet();
-  }, [planets, character]);
+  const homeworld = useHomeWorld(character, planets);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
