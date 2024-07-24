@@ -15,8 +15,8 @@
   margin-bottom: 0.65rem;
 }
 
-@media (min-width: 545px) {
+/* @media (min-width: 545px) {
   .two-col-grid:not(.character-details__list) {
     grid-template-columns: repeat(2, 1fr);
   }
-}
+} */

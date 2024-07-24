@@ -33,21 +33,18 @@ export const CharacterProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         const response = await fetch("https://swapi.dev/api/people/?page=1");
         const data = await response.json();
-        setCharacters(data.results);
+        return data.results;
       } catch (error: unknown) {
         const typedError = error as { message: string };
         setError(typedError.message);
-      } finally {
-        setLoading(false);
       }
     };
 
     const fetchPlanetsAndFilms = async () => {
       try {
-        const [planetsResponse, filmsResponse] = await Promise.all([
-          fetchPlanets(),
-          fetchFilms(),
-        ]);
+        const [characterResp, planetsResponse, filmsResponse] =
+          await Promise.all([fetchCharacters(), fetchPlanets(), fetchFilms()]);
+        setCharacters(characterResp);
         setPlanets(planetsResponse);
         setFilms(filmsResponse);
       } catch (error: unknown) {
